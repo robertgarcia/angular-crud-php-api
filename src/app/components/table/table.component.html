@@ -1,6 +1,9 @@
+<button mat-raised-button class="go_right" (click)="openDialog()">Nuevo</button>
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
+
+
 <div class="mat-elevation-z8">
   <table mat-table
          [dataSource]="dataSource" matSort multiTemplateDataRows>
@@ -21,7 +24,6 @@
             <div class="example-element-weight"> {{element.estado}} </div>
           </div>
           <div class="example-element-description">
-            <span class="example-element-description-attribution"> -- Wikipedia</span>
             <form class="example-form">
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Favorite food" [value]="element.desc">
@@ -30,6 +32,8 @@
                 <textarea matInput placeholder="Leave a comment"></textarea>
               </mat-form-field>
             </form>
+            <button mat-raised-button color="primary">Editar</button>
+            <button (click)=borrar(i) mat-raised-button color="warn">Borrar</button>
           </div>
         </div>
       </td>

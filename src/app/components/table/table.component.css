@@ -54,3 +54,7 @@ table {
     font-size: 14px;
     width: 100%;
   }
+
+  .go_right{
+    float: right;
+  }

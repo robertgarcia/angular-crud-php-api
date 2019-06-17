@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Nuevo Registro</h1>
+<div mat-dialog-content>
+    <mat-error *ngIf="!go">
+      {{ msj }}
+    </mat-error>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input name="id" matInput placeholder="ID" [(ngModel)]="data.motivo" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Descripción" [(ngModel)]="data.desc" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Tipo" [(ngModel)]="data.tipo" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Estado" [(ngModel)]="data.estado" [ngModelOptions]="{standalone: true}" required>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button cdkFocusInitial (click)="onClick(data)" >Crear</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>
