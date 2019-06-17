@@ -6,7 +6,7 @@ import { MotivosService } from '../../services/motivos.service';
 import { Motivos } from '../../models/motivo';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormControl, Validators, Form} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-table',
@@ -35,7 +35,8 @@ export class TableComponent implements OnInit {
 
   constructor(
     private service: MotivosService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) { 
   }
 
@@ -67,6 +68,7 @@ export class TableComponent implements OnInit {
       this.service.update(data).subscribe(res => {
         this.loadInfo();
         this.go=true;
+        this.openSnackBar("Registro Actualizado", "Cerrar");
       }, (err => {
         this.go=false;
         this.msj = err.error.message;
@@ -81,9 +83,9 @@ export class TableComponent implements OnInit {
   delete(id:number){
     if(id){
       this.service.delete(id).subscribe(res => {
-        console.log(res);
         this.loadInfo();
         this.go=true;
+        this.openSnackBar("Registro Eliminado", "Cerrar");
       }, (err => {
         this.go=false;
         this.msj = err.error.message;
@@ -106,7 +108,14 @@ export class TableComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.loadInfo();
+        this.openSnackBar("Registro Agregado", "Cerrar");
       }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
     });
   }
 }

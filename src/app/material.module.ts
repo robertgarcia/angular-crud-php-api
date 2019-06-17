@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -25,7 +26,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
   exports:[
     MatToolbarModule,
@@ -37,7 +39,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }
