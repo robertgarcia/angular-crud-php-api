@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { MotivosService } from '../../services/motivos.service';
 import { Motivos } from '../../models/motivo';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
@@ -24,6 +25,7 @@ export class TableComponent implements OnInit {
   expandedElement: Motivos | null;
 
   @ViewChild(MatSort, <any>{static:true}) sort: MatSort;
+  @ViewChild(MatPaginator, <any>{static: true}) paginator: MatPaginator;
 
   constructor(
     private service: MotivosService
@@ -38,9 +40,14 @@ export class TableComponent implements OnInit {
   loadInfo(){
     this.service.getAll().subscribe(data => {
       this.motivos = data;
-      this.dataSource = new MatTableDataSource(this.motivos);
+      this.dataSource = new MatTableDataSource<Motivos>(this.motivos);
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
