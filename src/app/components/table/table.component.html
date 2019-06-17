@@ -17,23 +17,28 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
         <div class="example-element-detail"
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <div class="example-element-diagram">
-            <div class="example-element-position"> {{element.motivo}} </div>
-            <div class="example-element-symbol"> {{element.desc}} </div>
-            <div class="example-element-name"> {{element.tipo}} </div>
-            <div class="example-element-weight"> {{element.estado}} </div>
-          </div>
           <div class="example-element-description">
-            <form class="example-form">
+            <form class="example-form" #f="ngForm" >
+              <mat-error *ngIf="!go">
+                {{ msj }}
+              </mat-error>
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Favorite food" [value]="element.desc">
+                <input name="motivo" matInput placeholder="Motivo" [value]="element.motivo" disabled="disabled" [(ngModel)]="motivo.motivo">
               </mat-form-field>
               <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Leave a comment"></textarea>
+                <input name="desc" matInput placeholder="Descripción" [value]="element.desc" [(ngModel)]="motivo.desc">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input name="tipo" matInput placeholder="Tipo" [value]="element.tipo" [(ngModel)]="motivo.tipo">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input name="estado" matInput placeholder="Estado" [value]="element.estado" [(ngModel)]="motivo.estado">
               </mat-form-field>
             </form>
-            <button mat-raised-button color="primary">Editar</button>
-            <button (click)=borrar(i) mat-raised-button color="warn">Borrar</button>
+            <div class="go_right">
+              <button mat-raised-button color="primary" (click)="update(motivo)">Editar</button>
+              <button (click)=borrar(element) mat-raised-button color="warn">Borrar</button>
+            </div>
           </div>
         </div>
       </td>
@@ -43,7 +48,7 @@
     <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
         class="example-element-row"
         [class.example-expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element">
+        (click)="expandedElement = expandedElement === element ? null : element; motivo.desc = element.desc; motivo.motivo = element.motivo; motivo.estado = element.estado; motivo.tipo = element.tipo; go=true ">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>

@@ -20,4 +20,8 @@ export class MotivosService {
     return this.http.post(`${environment.apiUrl}motivo/save.php`, JSON.stringify({ "id": motivo.motivo, "desc": motivo.desc, "tipo": motivo.tipo, "estado": motivo.estado }));
   }
 
+  update(motivo: Motivos){
+    return this.http.post(`${environment.apiUrl}motivo/update.php`, JSON.stringify({ "id": motivo.motivo, "desc": motivo.desc, "tipo": motivo.tipo, "estado": motivo.estado }));
+  }
+
 }

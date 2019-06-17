@@ -6,7 +6,7 @@ import { MotivosService } from '../../services/motivos.service';
 import { Motivos } from '../../models/motivo';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, Form} from '@angular/forms';
 
 @Component({
   selector: 'app-table',
@@ -22,10 +22,16 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class TableComponent implements OnInit {
   motivos: Motivos[];
-  motivo: Motivos;
+  motivo: Motivos = new Motivos();
   dataSource = new MatTableDataSource();
   columnsToDisplay = ['motivo', 'desc', 'tipo', 'estado'];
   expandedElement: Motivos | null;
+  go = true;
+  msj = "";
+  id:number;
+  desc = "";
+  tipo = "";
+  estado = "";
 
   @ViewChild(MatSort, <any>{static:true}) sort: MatSort;
   @ViewChild(MatPaginator, <any>{static: true}) paginator: MatPaginator;
@@ -48,6 +54,27 @@ export class TableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  update(data:Motivos){
+    if(
+      data.motivo
+      && data.desc != ""
+      && data.tipo != ""
+      && data.estado != ""
+    ){
+      this.service.update(data).subscribe(res => {
+        this.loadInfo();
+        this.go=true;
+      }, (err => {
+        this.go=false;
+        this.msj = err.error.message;
+      }));
+      
+    }else{
+      this.go=false;
+      this.msj = "Formulario Invalido!"
+    }
   }
 
   applyFilter(filterValue: string) {
@@ -92,7 +119,6 @@ export class DialogOverviewDialog {
       && data.estado != ""
     ){
       this.service.save(data).subscribe(data => {
-        console.log(data);
         this.dialogRef.close(true);
       }, (err => {
         this.go=false;
