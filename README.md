@@ -6,18 +6,18 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-##Angular Material
+## Angular Material
 
 Using the Angular CLI ng add command will update your Angular project with the correct dependencies, perform configuration changes and execute initialization code.
 `ng add @angular/material`
 
 https://material.angular.io/
 
-##NPM
+## NPM
 
 Run `npm install` 
 
-##API URL
+## API URL
 
 It is in the environments folder `environments.ts`
 
