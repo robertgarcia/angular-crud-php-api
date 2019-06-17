@@ -1,6 +1,6 @@
 <button mat-raised-button class="go_right" (click)="openDialog()">Nuevo</button>
 <mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="filter">
 </mat-form-field>
 
 
@@ -37,7 +37,7 @@
             </form>
             <div class="go_right">
               <button mat-raised-button color="primary" (click)="update(motivo)">Editar</button>
-              <button (click)=borrar(element) mat-raised-button color="warn">Borrar</button>
+              <button (click)=delete(element.motivo) mat-raised-button color="warn">Borrar</button>
             </div>
           </div>
         </div>

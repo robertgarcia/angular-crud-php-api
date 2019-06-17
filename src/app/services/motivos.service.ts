@@ -24,4 +24,8 @@ export class MotivosService {
     return this.http.post(`${environment.apiUrl}motivo/update.php`, JSON.stringify({ "id": motivo.motivo, "desc": motivo.desc, "tipo": motivo.tipo, "estado": motivo.estado }));
   }
 
+  delete(id: number) {
+    return this.http.post(`${environment.apiUrl}motivo/delete.php`, JSON.stringify({"id" : id}) );
+}
+
 }

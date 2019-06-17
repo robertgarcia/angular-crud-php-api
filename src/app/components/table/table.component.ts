@@ -28,10 +28,7 @@ export class TableComponent implements OnInit {
   expandedElement: Motivos | null;
   go = true;
   msj = "";
-  id:number;
-  desc = "";
-  tipo = "";
-  estado = "";
+  filter="";
 
   @ViewChild(MatSort, <any>{static:true}) sort: MatSort;
   @ViewChild(MatPaginator, <any>{static: true}) paginator: MatPaginator;
@@ -53,6 +50,10 @@ export class TableComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Motivos>(this.motivos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      if(this.filter!=""){
+        this.applyFilter(this.filter);
+      }
     });
   }
 
@@ -71,6 +72,22 @@ export class TableComponent implements OnInit {
         this.msj = err.error.message;
       }));
       
+    }else{
+      this.go=false;
+      this.msj = "Formulario Invalido!"
+    }
+  }
+
+  delete(id:number){
+    if(id){
+      this.service.delete(id).subscribe(res => {
+        console.log(res);
+        this.loadInfo();
+        this.go=true;
+      }, (err => {
+        this.go=false;
+        this.msj = err.error.message;
+      }));
     }else{
       this.go=false;
       this.msj = "Formulario Invalido!"
